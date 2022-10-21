@@ -16,19 +16,13 @@ interface CyclesState {
   activeCycleId: string | null
 }
 
-interface ActionProps {
-  type: ActionTypes
-  payload?: {
-    newCycle: Cycle
-  }
-}
-
-export function cyclesReducer(state: CyclesState, action: ActionProps) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function cyclesReducer(state: CyclesState, action: any) {
   switch (action.type) {
     case ActionTypes.ADD_NEW_CYCLE:
       return produce(state, (draft) => {
-        draft.cycles.push(action.payload!.newCycle)
-        draft.activeCycleId = action.payload!.newCycle.id
+        draft.cycles.push(action.payload.newCycle)
+        draft.activeCycleId = action.payload.newCycle.id
       })
     case ActionTypes.INTERRUPT_CURRENT_CYCLE: {
       const currentCycleIndex = state.cycles.findIndex((cycle) => {
